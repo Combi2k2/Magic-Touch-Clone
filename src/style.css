@@ -31,23 +31,11 @@ button:hover{
 	color: white;
 }
 
-h1{
-	font-size: 48px;
-	margin: 20px;
-}
-
 p{
 	font-size: 18px;
 }
 
-#prediction{
-	border: 1px solid black;
-	border-radius: 5px;
-	font-size: 228px;
-	line-height: 300px;
-}
-
-#main-canvas{
+#draw-canvas{
 	border: 1px solid black;
 	border-radius: 5px;
 	cursor: pointer;
@@ -63,6 +51,7 @@ p{
 	position: absolute;
 }
 
-.rocket {
-	
+#game-canvas {
+	width: 800px;
+	height: 600px;
 }

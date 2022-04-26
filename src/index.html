@@ -2,21 +2,28 @@
 <html lang = "en">
 
 <head>
-    <title>Digit Recognition</title>
+    <title>Magic Touch Clone</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 </head>
 
 <body>
+    <div id = "game-window">
+        <canvas id = "game-canvas" width="800" height="600"></canvas>
+    </div>
     <div id = "container-canvas">
-        <canvas id =  "main-canvas" width="300" height="300"></canvas>
+        <canvas id =  "draw-canvas" width="300" height="300"></canvas>
         <canvas id = "small-canvas" width="28"  height="28"></canvas>
     </div>
-    <div id="prediction"></div>
 
-    <button id="erase">Clear</button>
-    <script src="script.js"></script>
+    <script src="canvas_render.js"></script>
+    <script src="canvas_draw.js"></script>
+
+    <script src = "utils/explosion.js"></script>
+    <!-- <script src = "utils/rocket.js"></script> -->
+    
+    <!-- <script src="script.js"></script> -->
 </body>
 
 </html>
