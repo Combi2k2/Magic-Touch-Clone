@@ -7,9 +7,8 @@ function display_sprite_explosion(explosion_position, idx_explosion = 0)    {
     let pos_y = explosion_position[1];
     
     // there is 7 explosion images - return after
-
-    if (idx_explosion > 2)  game_ctx.clearRect(pos_x, pos_y, 180, 180);
-    if (idx_explosion > 6)  return;
+    if (idx_explosion > 6)
+        return;
 
     const w = 192; // width
     const h = 192; // height
@@ -22,6 +21,9 @@ function display_sprite_explosion(explosion_position, idx_explosion = 0)    {
         offset_x, offset_y, w, h,   // source
         pos_x, pos_y, 180, 180      // destination
     );
+    // setTimeout(() => {
+    //     display_sprite_explosion(explosion_position, idx_explosion + 1);
+    // }, 16);
 }
 
 //  when the missile hits the ground, you lose and a mushroom explosion will happen.
@@ -33,17 +35,17 @@ img_mushroom_explosion.onload = console.log("Mushroom Explosion Loaded");
 //  console.log(img_mushroom_explosion.naturalWidth);   //  1556
 //  console.log(img_mushroom_explosion.naturalHeight);  //  971
 
-function display_mushroom_explosion(explosion_position, idx_explosion)  {   //here the position of the explosion is determined by the coordinates of the foot of the explosion (not the top left color like before)
+function display_mushroom_explosion(explosion_position, idx_explosion = 0)  {   //here the position of the explosion is determined by the coordinates of the foot of the explosion (not the top left color like before)
     let pos_x = explosion_position[0];
     let pos_y = explosion_position[1];
 
-    let w = 312;    // width
+    let w = 311;    // width
     let h = 224;    // height
 
     if (idx_explosion < 5)  h = 75;
     if (idx_explosion > 24) return; // there is 25 explosion images - return after
     
-    game_ctx.clearRect(pos_x, pos_y - h, w, h);
+    game_ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
     
     // the (x,y)-offset of the current image
     const offset_x = (idx_explosion % 5) * w;
