@@ -11,7 +11,7 @@ let prediction = null;
 
 /* Loads trained model */
 async function init()	{
-	model = await tf.loadModel('http://localhost:5000/model/model.json');
+	model = await tf.loadModel('model/model.json');
 }
 
 canvas.addEventListener('mousedown', _event =>	{
@@ -68,12 +68,13 @@ canvas.addEventListener('mouseup', _event =>	{
 	
 			if (itr >= 20)
 				return;
-			setTimeout(run, 25);
+			setTimeout(run, 50);
 		}
-		setTimeout(run, 25);
+		setTimeout(run, 100);
 	}
 	fadeOut();
 	prediction = pred;
+	console.log(pred);
 });
 
 /* Draws on canvas */
