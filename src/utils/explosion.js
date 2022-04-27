@@ -39,7 +39,7 @@ function display_mushroom_explosion(explosion_position, idx_explosion = 0)  {   
     let pos_x = explosion_position[0];
     let pos_y = explosion_position[1];
 
-    let w = 311;    // width
+    let w = 318;    // width
     let h = 224;    // height
 
     if (idx_explosion < 5)  h = 75;
