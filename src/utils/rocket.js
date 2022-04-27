@@ -1,14 +1,3 @@
-let rocket_image = [];
-
-for(let i = 0 ; i < 10 ; ++i)   {
-    var img = new Image();
-    img.src = `images/rockets/rocket${i}.png`;
-    img.onload = function() {
-        rocket_image.push(img);
-        console.log(`Rocket${i} Loaded`);
-    }
-}
-
 class Rocket    {
     constructor(x = Math.floor(Math.random() * game_canvas.width) - 180, y = 0) {
         this.x = x;
