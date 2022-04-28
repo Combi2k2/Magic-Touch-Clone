@@ -31,3 +31,9 @@ function genRocket()    {
 
     rockets[i].push(R);
 }
+function display_missle(missle_position, id_missle) {
+    let x = missle_position[0];
+    let y = missle_position[1];
+
+    game_ctx.drawImage(rocket_images[id_missle], x, y, missle_width, missle_height);
+}
