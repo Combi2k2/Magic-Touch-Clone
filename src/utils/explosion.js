@@ -45,17 +45,14 @@ function render_mushroom_explosion(idx_explosion = 0)   {   // display mushroom 
     const explosion_width  = game_canvas.width * 0.5;
     const explosion_height = explosion_width / w * h;
     
-    //  position of the explosion is away at the bottom middle
-    const pos_x = game_canvas.width / 2 - explosion_width / 2;
-    const pos_y = game_canvas.height - explosion_height;
-    
     // the (x,y)-offset of the current image
     const offset_x = (idx_explosion % 5) * w;
     const offset_y = Math.max(Math.floor(idx_explosion / 5) * 224 - 224 + 75, 0);
 
     game_ctx.drawImage(img_mushroom_explosion,
         offset_x, offset_y, w, h,   // source
-        pos_x, pos_y - explosion_height,
+        game_canvas.width / 2 - explosion_width / 2,
+        game_canvas.height - explosion_height,          //  position of the explosion is away at the bottom middle
         explosion_width,
         explosion_height    // destination
     );
