@@ -50,7 +50,7 @@ function display_mushroom_explosion(idx_explosion = 0)  {   // display mushroom 
     
     //  position of the explosion is away at the bottom middle
     const pos_x = game_canvas.width / 2 - explosion_width / 2;
-    const pos_y = game_canvas.height;
+    const pos_y = game_canvas.height - explosion_height;
     
     game_ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
     
@@ -60,7 +60,7 @@ function display_mushroom_explosion(idx_explosion = 0)  {   // display mushroom 
 
     game_ctx.drawImage(img_mushroom_explosion,
         offset_x, offset_y, w, h,   // source
-        pos_x, pos_y - h,
+        pos_x, pos_y,
         explosion_width,
         explosion_height    // destination
     );
