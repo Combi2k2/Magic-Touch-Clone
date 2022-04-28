@@ -19,7 +19,9 @@ function display_sprite_explosion(explosion_position, idx_explosion = 0)    {
 
     game_ctx.drawImage(img_explosion, 
         offset_x, offset_y, w, h,   // source
-        pos_x, pos_y, 180, 180      // destination
+        pos_x, pos_y,
+        missle_width,
+        missle_height   // destination
     );
     // setTimeout(() => {
     //     display_sprite_explosion(explosion_position, idx_explosion + 1);
@@ -35,12 +37,15 @@ img_mushroom_explosion.onload = console.log("Mushroom Explosion Loaded");
 //  console.log(img_mushroom_explosion.naturalWidth);   //  1556
 //  console.log(img_mushroom_explosion.naturalHeight);  //  971
 
-function display_mushroom_explosion(explosion_position, idx_explosion = 0)  {   //here the position of the explosion is determined by the coordinates of the foot of the explosion (not the top left color like before)
-    let pos_x = explosion_position[0];
-    let pos_y = explosion_position[1];
+function display_mushroom_explosion(idx_explosion = 0)  {   // display mushroom explosion at the middle bottom of the canvas
+    const w = 318;    // width
+    const h = 224;    // height
 
-    let w = 318;    // width
-    let h = 224;    // height
+    let explosion_width  = game_canvas.width * 0.5;
+    let explosion_height = explosion_width / w * h;
+    
+    let pos_x = game_canvas.width / 2 - explosion_width / 2;
+    let pos_y = game_canvas.height;
 
     if (idx_explosion < 5)  h = 75;
     if (idx_explosion > 24) return; // there is 25 explosion images - return after
@@ -53,10 +58,12 @@ function display_mushroom_explosion(explosion_position, idx_explosion = 0)  {   
 
     game_ctx.drawImage(img_mushroom_explosion,
         offset_x, offset_y, w, h,   // source
-        pos_x, pos_y - h, w, h      // destination
+        pos_x, pos_y - h,
+        explosion_width,
+        explosion_height    // destination
     );
     setTimeout(function()   {
-        display_mushroom_explosion(explosion_position, idx_explosion + 1);
+        display_mushroom_explosion(idx_explosion + 1);
     }, 100);
 }
 //  display_mushroom_explosion([100, 400], 0);

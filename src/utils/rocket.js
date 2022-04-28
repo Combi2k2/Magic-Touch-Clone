@@ -15,7 +15,7 @@ console.log(rocket_images.length);
 
 //  declare a class Rocket
 class Rocket    {
-    constructor(x = Math.floor(Math.random() * game_canvas.width) - 180, y = 0) {
+    constructor(x = Math.floor(Math.random() * (game_canvas.width - 180)), y = 0)   {
         this.x = x;
         this.y = y;
         this.explosion_level = -1000;
