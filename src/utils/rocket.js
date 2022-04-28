@@ -54,6 +54,13 @@ function render_Rockets()   {
 
 //  move the rocket forward and update the explosion stage of the missle
 function move_Rockets() {
+    if (prediction != null) {
+        for(let R of rockets[prediction])
+            R.explosion_level = -1;
+        
+        prediction = null;
+    }
+
     for(let i = 0 ; i < 10 ; ++i)
     for(let j = 0 ; j < rockets[i].length ; ++j)    {
         rockets[i][j].y += 5;
