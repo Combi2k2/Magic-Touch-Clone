@@ -2,6 +2,9 @@ const canvas = document.getElementById('draw-canvas');
 const smallCanvas = document.getElementById('small-canvas');
 const displayBox = document.getElementById('prediction');
 
+canvas.width  = window.innerWidth * 0.22;
+canvas.height = canvas.width;
+
 const inputBox = canvas.getContext('2d');
 const smBox = smallCanvas.getContext('2d');
 
@@ -27,6 +30,7 @@ canvas.addEventListener('mousemove', event =>	{
   	if (isDrawing) drawStroke(event.clientX, event.clientY);
 });
 
+//	the color of the stroke becomes the color of matched missle and then fade out
 let colors = ['#FA8072', '#00FF00', '#1E90FF', '#DB7093', '#40E0D0', '#DCDC00', '#FFA500', '#9932CC', '#D2691E', '#C0C0C0'];
 
 function HexToRGB(hex_col)	{
@@ -48,15 +52,14 @@ canvas.addEventListener('mouseup', _event =>	{
 	let imgd = inputBox.getImageData(0, 0, canvas.width, canvas.height);
 
 	let [pred_R, pred_G, pred_B] = HexToRGB(colors[pred]);
-	let cnt_filled_pixels = 0;
 
+	//	transforming the color
 	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] != 255)	{
 		imgd.data[i] = pred_R;
 		imgd.data[i + 1] = pred_G;
 		imgd.data[i + 2] = pred_B;
-
-		cnt_filled_pixels++;
 	}
+	//	re-draw the inputBox
 	inputBox.putImageData(imgd, 0, 0);
 
 	function fadeOut()  {
