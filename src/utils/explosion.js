@@ -38,17 +38,19 @@ img_mushroom_explosion.onload = console.log("Mushroom Explosion Loaded");
 //  console.log(img_mushroom_explosion.naturalHeight);  //  971
 
 function display_mushroom_explosion(idx_explosion = 0)  {   // display mushroom explosion at the middle bottom of the canvas
-    const w = 318;    // width
-    const h = 224;    // height
-
-    let explosion_width  = game_canvas.width * 0.5;
-    let explosion_height = explosion_width / w * h;
-    
-    let pos_x = game_canvas.width / 2 - explosion_width / 2;
-    let pos_y = game_canvas.height;
+    let w = 318;    // width
+    let h = 224;    // height
 
     if (idx_explosion < 5)  h = 75;
     if (idx_explosion > 24) return; // there is 25 explosion images - return after
+
+    //  scale of explosion depend on the window
+    const explosion_width  = game_canvas.width * 0.5;
+    const explosion_height = explosion_width / w * h;
+    
+    //  position of the explosion is away at the bottom middle
+    const pos_x = game_canvas.width / 2 - explosion_width / 2;
+    const pos_y = game_canvas.height;
     
     game_ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
     
