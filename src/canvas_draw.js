@@ -27,7 +27,8 @@ canvas.addEventListener('mousedown', _event =>	{
 });
 
 canvas.addEventListener('mousemove', event =>	{
-  	if (isDrawing) drawStroke(event.clientX, event.clientY);
+  	if (isDrawing)
+	  	drawStroke(event.clientX, event.clientY);
 });
 
 //	the color of the stroke becomes the color of matched missle and then fade out
