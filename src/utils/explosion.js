@@ -42,7 +42,7 @@ function render_mushroom_explosion(idx_explosion = 0)   {   // display mushroom 
         h = 75; //  the first row of the sprited mushroom explosion is trimmed
 
     //  scale of explosion depend on the window
-    const explosion_width  = game_canvas.width * 0.5;
+    const explosion_width  = game_canvas.width * 0.8;
     const explosion_height = explosion_width / w * h;
     
     // the (x,y)-offset of the current image
