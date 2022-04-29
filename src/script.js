@@ -1,15 +1,12 @@
-let explosions = null;
-let score = null;
+let score = 0;
+let level = () =>   {   return  Math.floor(score / 5);  }
 
 let interval_genRocket = null;
 let velocity_genRocket = null;
 const interval_genRocket_threshold = 200;
 
-let no_frame_explosion_on_air = 6
-
 function GameStart(mode)    {
     rockets = [];
-    explosions = [];
     score = 0;
 
     for(let i = 0 ; i < 10 ; ++i)
@@ -18,49 +15,71 @@ function GameStart(mode)    {
     interval_genRocket = (mode == 'Classic') ? 2000 : 1500;
     velocity_genRocket = (mode == 'Classic') ? 40 : 60;
 }
-function level()    {
-    return  Math.floor(score / 5);
+function GameLose() {
+    function explode(idx_explosion = 0) {
+        if (idx_explosion > 19)
+            return;
+        
+        game_ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
+        
+        render_Sky();
+        render_City();
+        render_mushroom_explosion(idx_explosion);
+        render_Grass();
+
+        game_ctx.fillStyle = `rgba(255,0,0,${0.02 * idx_explosion})`;
+        game_ctx.fillRect(0, 0, game_canvas.width, game_canvas.height);
+        
+        setTimeout(() =>    {
+            window.requestAnimationFrame(() =>  {
+                explode(idx_explosion + 1);
+            });
+        }, 75);
+
+        // game_canvas_container = document.querySelector(".game-canvas.container")
+        // game_canvas_c
+        // setTimeout(() => {
+        //     explode(idx_explosion + 1);
+        // }, 75);
+    }
+    explode();
 }
-let last_genRocket = null;
+let time_elapsed = 0;
+let time_mock = null;
 
 function gameRender()   {
+    if (isPaused)   return;
+    game_canvas_setup();
+
     let cur_time = Date.now();
-    if (cur_time - last_genRocket > Math.max(interval_genRocket - velocity_genRocket * level(), interval_genRocket_threshold))  {
-        last_genRocket = cur_time;
+    let cur_interval = Math.max(interval_genRocket - velocity_genRocket * level(), interval_genRocket_threshold);
+
+    time_elapsed += cur_time - time_mock;
+    time_mock = cur_time;
+
+    if (time_elapsed > cur_interval)    {
+        time_elapsed = 0;
         genRocket();
     }
     game_ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
 
-    if (prediction != null) {
-        for(let R of rockets[prediction])
-            R.explosion_level = 0;
-        
-        prediction = null;
+    render_Sky();
+    render_City();
+    move_Rockets();
+
+
+    if (render_Rockets())   {
+        render_Grass();
+        //window.requestAnimationFrame(gameRender);
+        setTimeout(gameRender, 25);
     }
-    for(let i = 0 ; i < 10 ; ++i)   {
-        for(let j = 0 ; j < rockets[i].length ; ++j)    {
-            rockets[i][j].y += 2;
-            rockets[i][j].explosion_level++;
-        }
-        for(let j = 0 ; j < rockets[i].length ; ++j)    {
-            let R = rockets[i][j];
-            if (R.explosion_level > 6)  rockets[i].splice(j--, 1);
-            if (R.y + 180 > game_canvas.height) {
-                display_mushroom_explosion([R.x, R.y + 180]);
-                return;
-            }
-            if (R.explosion_level < 0)  game_ctx.drawImage(rocket_images[i], R.x, R.y);
-            else                        display_sprite_explosion([R.x, R.y], R.explosion_level);
-        }
-    }
-    setTimeout(gameRender, 50);
+    else
+        GameLose();
 }
 function Game(mode) {
-    last_genRocket = Date.now() - 2000;
+    time_mock = Date.now() - 2000;
 
     GameStart(mode);
     gameRender();
 }
-display_mushroom_explosion([400, 500]);
-//Game('Classic');
-//Game();
+Game('Classic');

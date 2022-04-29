@@ -42,12 +42,22 @@ function render_Rockets()   {
     for(let i = 0 ; i < 10 ; ++i)
     for(let j = 0 ; j < rockets[i].length ; ++j)    {
         let R = rockets[i][j];
-        if (R.explosion_level > 6)  rockets[i].splice(j--, 1);
+        if (R.explosion_level > 6) {
+            rockets[i].splice(j--, 1);
+        }
         if (R.y + missle_height > game_canvas.height)
             return  0;
         
         if (R.explosion_level < 0)  render_missle([R.x, R.y], i);
-        else                        render_explosion([R.x, R.y], R.explosion_level);
+        else {
+            if (R.explosion_level == 0) {
+                score++;
+                scoreElement = document.querySelector("#score");
+                scoreElement.textContent = score;
+                console.log("score = ", score)
+            }
+            render_explosion([R.x, R.y], R.explosion_level);
+        }
     }
     return  1;
 }

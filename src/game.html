@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <title>Magic Touch Clone</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.12.0"> </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+</head>
+
+<body>
+    <div class = "game-canvas-container">
+        <canvas id = "game-canvas" width = "100%" height = 100%></canvas>
+        <button id = "pause">II</button>
+    </div>
+
+    <div id = "score">
+        0
+    </div>
+    
+    <div class = "draw-canvas-container">
+        <canvas id =  "draw-canvas"></canvas>
+        <canvas id = "small-canvas" width="28"  height="28"></canvas>
+    </div>
+
+    <script src="pause.js"></script>
+    
+    <script src="canvas_render.js"></script>
+    <script src="canvas_draw.js"></script>
+    
+    <script src = "utils/background.js"></script>
+    <script src = "utils/explosion.js"></script>
+    <script src = "utils/rocket.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,9 +1,7 @@
 body{
-	width: 700px;
-	text-align: center;
-	margin: 0px auto;
 	color: #111111;
 	font-family: 'Montserrat', sans-serif;
+	align-items: center;
 }
 
 div{
@@ -12,46 +10,125 @@ div{
 	margin: 15px 20px;
 	float: left;
 }
-
-button{
-	font-size: 18px;
+button	{
+	font-size: 32px;
 	font-family: inherit;
+	font-weight: 10000;
 	text-transform: uppercase;
-	height: 100%;
-	border: 2px solid #111111;
-	border-radius: 10px;
-	background: none;
-	outline: none;
-	margin: 15px 5px;
-	transition: all 0.3s;
-}
+	text-align: center;
+	align-items: center;
 
-button:hover{
-	background-color: #111111;
 	color: white;
+
+	width: 60px;
+	height: 60px;
+
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 6px #006666;
+
+	background-color: #00FFFF;
+	/* transition-duration: 0.4s; */
+
+	z-index: 10;
+}
+button:hover	{
+	background-color: #00AAAA;
+}
+button:active	{
+	background-color: #00AAAA;
+	box-shadow: 0 2px #666;
+	transform: translateY(4px);
 }
 
-p{
-	font-size: 18px;
+/*	an element which help blocking all the access to the underlay canvas (game-canvas and draw-canvas)	*/
+.overlay	{
+    opacity: 0.8;
+    background-color: #FFF;
+    position: fixed;
+    width:  100%;
+    height: 100%;
+	margin: auto;
+
+    z-index: 99;
 }
 
-#draw-canvas{
-	border: 1px solid black;
+/*	the next 3 items are about the game canvas	*/
+.game-canvas-container	{
+	width: 75%;
+	height: 95%;
+
+	position: fixed;
+
+	left: 0;
+	bottom: 0;
+
+	margin-bottom: 1%;
+	margin-left: 1%;
+}
+#game-canvas {
+	position: absolute;
+	bottom: 0;
+	margin: 0;
+
+	width: 100%;
+	height: 100%;
+
+	border: solid black 2px;
 	border-radius: 5px;
-	cursor: pointer;
+}
+#pause {
+	position: absolute;
+	right: 0;
+	margin-right: 1%;
+	margin-top: 1%;
 }
 
+/**/
+#draw-canvas	{
+	background-color: #FFFFFF;
+
+	width: 22%;
+
+	border: 2px solid black;
+	border-radius: 5px;
+
+	cursor: pointer;
+
+	position: fixed;
+
+	bottom: 0;
+	right: 0;
+
+	margin-bottom: 1%;
+	margin-right: 1%;
+}
 #small-canvas{
 	display: none;
 }
-
-#container-canvas {
-	right: 0;
-	bottom: 0;
-	position: absolute;
+#draw-canvas:after	{
+	padding-bottom: 100%;
 }
 
-#game-canvas {
-	width: 800px;
-	height: 600px;
+#score {
+	position: fixed;
+	top: 30%;
+	right: 5%;
+	background-color: grey;
+
+	width: 10%;
+	height: 10%;
+	text-align: center;
+	font-size: 4em;
+	color: white;
+
+	border: 2px solid black;
+	border-radius: 5px
+}
+
+.dashboard	{
+	position: fixed;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 100;
 }
