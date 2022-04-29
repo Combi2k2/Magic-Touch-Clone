@@ -2,11 +2,17 @@ const canvas = document.getElementById('draw-canvas');
 const smallCanvas = document.getElementById('small-canvas');
 const displayBox = document.getElementById('prediction');
 
+const inputBox = canvas.getContext('2d');
+const smBox = smallCanvas.getContext('2d');
+
 canvas.width  = window.innerWidth * 0.22;
 canvas.height = canvas.width;
 
-const inputBox = canvas.getContext('2d');
-const smBox = smallCanvas.getContext('2d');
+function draw_canvas_setup()	{
+	const rect = canvas.getBoundingClientRect();
+	canvas.width  = rect.width;
+	canvas.height = rect.height;
+}
 
 let isDrawing = false;
 let model;
@@ -18,6 +24,9 @@ async function init()	{
 }
 
 canvas.addEventListener('mousedown', _event =>	{
+	canvas.width  = window.innerWidth * 0.22;
+	canvas.height = canvas.width;
+
     isDrawing = true;
 
     inputBox.strokeStyle = 'black';
