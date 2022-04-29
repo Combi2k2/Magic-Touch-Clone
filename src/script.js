@@ -8,6 +8,7 @@ const interval_genRocket_threshold = 200;
 function GameStart(mode)    {
     rockets = [];
     score = 0;
+    isPaused = 0;
 
     for(let i = 0 ; i < 10 ; ++i)
         rockets.push([]);
