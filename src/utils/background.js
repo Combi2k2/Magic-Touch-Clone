@@ -31,3 +31,23 @@ function render_Sky()   {
         game_canvas.width,
         game_canvas.height);
 }
+
+const city_layer = new Image();
+city_layer.src = "images/city.png";
+city_layer.onload = function()  {
+    console.log("City loaded");
+}
+
+function render_City()  {
+    const w = 1150;
+    const h = 340;
+
+    const h_city = game_canvas.height * 0.2;
+    const w_city = h_city / h * w;
+
+    for(let i = 0 ; i * w_city < game_canvas.width ; ++i)
+        game_ctx.drawImage(city_layer,
+            25, 400, w, h,                                          //  source
+            i * w_city, game_canvas.height - h_city, w_city, h_city //  destination
+        );
+}
