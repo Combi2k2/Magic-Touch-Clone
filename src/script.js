@@ -8,7 +8,9 @@ const interval_genRocket_threshold = 200;
 function GameStart(mode)    {
     rockets = [];
     score = 0;
+    document.querySelector("#score").textContent = 0;
     isPaused = 0;
+    exploded = false;
 
     for(let i = 0 ; i < 10 ; ++i)
         rockets.push([]);
@@ -36,17 +38,13 @@ function GameLose() {
                 explode(idx_explosion + 1);
             });
         }, 75);
-
-        // game_canvas_container = document.querySelector(".game-canvas.container")
-        // game_canvas_c
-        // setTimeout(() => {
-        //     explode(idx_explosion + 1);
-        // }, 75);
     }
+    exploded = true;
     explode();
 }
 let time_elapsed = 0;
 let time_mock = null;
+let game_mode = ''
 
 function gameRender()   {
     if (isPaused)   return;
@@ -75,9 +73,21 @@ function gameRender()   {
         setTimeout(gameRender, 25);
     }
     else
+    {
         GameLose();
+        updateLeaderboard(game_mode, score);
+        leaderboard = LeaderboardElement(game_mode);
+        
+        let menu = document.createElement("div");
+        menu.classList += "dashboard";
+        
+        menu.appendChild(leaderboard)
+        menu.appendChild(replayButton);
+        document.body.appendChild(menu);
+    }
 }
 function Game(mode) {
+    game_mode = mode
     time_mock = Date.now() - 2000;
 
     GameStart(mode);
