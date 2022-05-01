@@ -14,7 +14,6 @@ for(let i = 0 ; i < 10 ; ++i)   {
     }
     rocket_images.push(img);
 }
-console.log(rocket_images.length);
 
 //  declare a class Rocket
 class Rocket    {
