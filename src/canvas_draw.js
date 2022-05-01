@@ -30,7 +30,7 @@ canvas.addEventListener('mousedown', _event =>	{
     isDrawing = true;
 
     inputBox.strokeStyle = 'black';
-    inputBox.lineWidth = `${canvas.width / 10}`;
+    inputBox.lineWidth = `${canvas.width / 12}`;
     inputBox.lineJoin = inputBox.lineCap = 'round';
     inputBox.beginPath();
 });
