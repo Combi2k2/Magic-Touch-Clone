@@ -33,6 +33,9 @@ function GameLose() {
         game_ctx.fillStyle = `rgba(255,0,0,${0.02 * idx_explosion})`;
         game_ctx.fillRect(0, 0, game_canvas.width, game_canvas.height);
         
+        if (replayed)
+            return;
+
         setTimeout(() =>    {
             window.requestAnimationFrame(() =>  {
                 explode(idx_explosion + 1);
@@ -72,8 +75,7 @@ function gameRender()   {
         //window.requestAnimationFrame(gameRender);
         setTimeout(gameRender, 25);
     }
-    else
-    {
+    else    {
         GameLose();
         updateLeaderboard(game_mode, score);
         leaderboard = LeaderboardElement(game_mode);
@@ -84,10 +86,12 @@ function gameRender()   {
         menu.appendChild(leaderboard)
         menu.appendChild(replayButton);
         document.body.appendChild(menu);
+
+        replayed = false;
     }
 }
 function Game(mode) {
-    game_mode = mode
+    game_mode = mode;
     time_mock = Date.now() - 2000;
 
     GameStart(mode);

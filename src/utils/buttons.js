@@ -67,8 +67,15 @@ function gameContinue() {
 }
 
 let replayButton = genButton("images/buttons/replay.png")
+let replayed = false;
+
 replayButton.addEventListener("click", _event => {
+    replayed = true;
     gameReplay();
+
+    setTimeout(() => {
+        replayed = false;
+    }, 75);
 });
 
 function gameReplay() {
