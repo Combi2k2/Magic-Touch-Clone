@@ -85,6 +85,7 @@ function gameReplay() {
         document.body.removeChild(overlay)
     }
     document.body.removeChild(menu)
+    clearTimeout(losingTimeoutId)
     GameStart('Classic')
     gameRender()
 }

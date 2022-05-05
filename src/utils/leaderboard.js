@@ -89,15 +89,16 @@ function LeaderboardElement(mode)   {
 
     var leaderboard = document.createElement("div");
     leaderboard.classList += "leaderboard";
-    leaderboard.textContent = `LEADERBOARD:\r\nID Mode    Score\r\n`;
+    leaderboard.textContent = `LEADERBOARD:\r\nID  Mode    Score\r\n`;
 
     for(let i = 0 ; i < leaderboard_size ; ++i)    {
         //score = JSON.parse(localStorage.getItem(i))
         let data = localStorage.getItem(i).split(',')
-        let data_mode = data[0]
-        let data_score = data[1]
-        console.log(localStorage.getItem(i))
-        leaderboard.textContent += `${i}. ${data_mode} ${data_score}\r\n`;
+        let data_id = i.toString();
+        let data_mode = data[0];
+        let data_score = data[1];
+        leaderboard.textContent += `${data_id}.` + Array(3 - data_id.length).fill('\xa0').join('') + `${data_mode}` +
+        Array(8 - data_mode.length).fill('\xa0').join('') + `${data_score}\r\n`;
     }
     
     return  leaderboard;

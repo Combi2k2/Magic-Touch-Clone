@@ -15,9 +15,12 @@ function GameStart(mode)    {
     for(let i = 0 ; i < 10 ; ++i)
         rockets.push([]);
     
+    console.log(mode)
     interval_genRocket = (mode == 'Classic') ? 2000 : 1500;
     velocity_genRocket = (mode == 'Classic') ? 40 : 60;
 }
+
+losingTimeoutId = null;
 function GameLose() {
     function explode(idx_explosion = 0) {
         if (idx_explosion > 19)
@@ -36,10 +39,8 @@ function GameLose() {
         if (replayed)
             return;
 
-        setTimeout(() =>    {
-            window.requestAnimationFrame(() =>  {
+        losingTimeoutId = setTimeout(() =>    {
                 explode(idx_explosion + 1);
-            });
         }, 75);
     }
     exploded = true;
@@ -90,11 +91,18 @@ function gameRender()   {
         replayed = false;
     }
 }
+
 function Game(mode) {
-    game_mode = mode;
+    //game_mode = mode;
     time_mock = Date.now() - 2000;
 
     GameStart(mode);
     gameRender();
 }
-Game('Classic');
+
+const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+game_mode = params.mode; // "some_value"
+Game(game_mode)

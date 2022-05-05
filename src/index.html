@@ -15,20 +15,18 @@
         <div class = "dropdown">
             <p class = "drop-button">START</p>
             <div class="dropdown-content">
-                <button class = "mode-button"><a href = 'game.html' style = "text-decoration: none;">CLASSIC</a></button>
-                <button class = "mode-button"><a href = 'game.html' style = "text-decoration: none;">INSANE</a></button>
-            </div>
+                <!-- <button class = "mode-button" onclick="setGameMode('Classic')"><a href = 'game.html' style = "text-decoration: none;">CLASSIC</a></button> -->
+                <button class = "mode-button" onclick="location.href = 'game.html?mode=Classic'">CLASSIC</button>
+                <button class = "mode-button" onclick="location.href = 'game.html?mode=Insane'">INSANE</button>            </div>
         </div>
 
         <div class="dropdown">
             <p class = "drop-button">GUIDE</p>
             <div class="dropdown-content" id = tutorial>
-                The rockets is attacking the city. You, the Great Wizard of the city, have to use your mighty paintbrush to draw the number written on the rockets to destroy them and protect the city.
+                <p class = "strokeme">The rockets is attacking the city. You, the Great Wizard of the city, have to use your mighty paintbrush to draw the number written on the rockets to destroy them and protect the city.</p>
             </div>
         </div>
     </div>
-
-    <script src = "lobby.js"></script>
 </body>
 
 </html>
