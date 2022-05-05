@@ -19,6 +19,8 @@ function GameStart(mode)    {
     interval_genRocket = (mode == 'Classic') ? 2000 : 1500;
     velocity_genRocket = (mode == 'Classic') ? 40 : 60;
 }
+
+losingTimeoutId = null;
 function GameLose() {
     function explode(idx_explosion = 0) {
         if (idx_explosion > 19)
@@ -37,10 +39,8 @@ function GameLose() {
         if (replayed)
             return;
 
-        setTimeout(() =>    {
-            window.requestAnimationFrame(() =>  {
+        losingTimeoutId = setTimeout(() =>    {
                 explode(idx_explosion + 1);
-            });
         }, 75);
     }
     exploded = true;
