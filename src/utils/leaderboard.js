@@ -98,15 +98,15 @@ function LeaderboardElement(game_mode)  {
         let data_mode  = data[0];
         let data_score = data[1];
 
-        if (data_mode == game_mode)
-            scores.push(data_score)
-    }
-    scores.sort();
-    scores = scores.reverse();
+        if (data_mode == game_mode) {
+            scores.push(data_score);
+            scores.sort();
+            scores = scores.reverse();
 
-    if (scores.length > 5)
-        scores = scores.slice(0, 5);
-    
+            if (scores.length > 5)
+                scores = scores.slice(0, 5);
+        }
+    }
     for(let i = 0 ; i < scores.length ; ++i)    {
         if (game_mode == 'Classic') leaderboard.textContent += `${i}.  Classic ${scores[i]}\n`;
         if (game_mode == 'Insane')  leaderboard.textContent += `${i}.  Insane  ${scores[i]}\n`;
