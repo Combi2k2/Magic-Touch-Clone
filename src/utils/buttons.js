@@ -1,4 +1,5 @@
 let isPaused = false;
+let timePaused = null;
 let exploded = false;
 let tmp = null;
 
@@ -6,12 +7,13 @@ let pauseButton = document.querySelector("#pause");
 
 pauseButton.addEventListener("click", _event => {
     if (exploded === false) {
-        isPaused = true;
         gamePause();
     }
 });
 
 function gamePause()    {
+    isPaused = true;
+    timePaused = Date.now();
     let overlay = document.createElement("div")
     overlay.classList += "overlay"
     document.body.appendChild(overlay)
@@ -55,11 +57,12 @@ function genButton(icon_src)    {
 
 let playButton = genButton("images/buttons/play.png")
 playButton.addEventListener("click", _event => {
-    isPaused = false;
     gameContinue();
 });
 
 function gameContinue() {
+    isPaused = false;
+    time_mock = Date.now() - (timePaused - time_mock);
     let overlay = document.querySelector(".overlay")
     let menu = document.querySelector(".dashboard")
     document.body.removeChild(overlay)
