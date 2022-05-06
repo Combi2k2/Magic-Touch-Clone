@@ -46,7 +46,7 @@ function genButton(icon_src)    {
     button_img.src = icon_src;
     button_img.zIndex = 1000;
     button_img.onload = () => {
-        button_ctx.drawImage(button_img, 0, 0, buttoncanvas.width, buttoncanvas.height);
+        button_ctx.drawImage(button_img, 3, 1, buttoncanvas.width - 3, buttoncanvas.height - 3);
     };
     console.log(button_img)
     
