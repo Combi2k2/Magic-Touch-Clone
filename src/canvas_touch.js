@@ -28,7 +28,6 @@ function handleStart(evt) {
 	for (let i = 0; i < touches.length; i++) {
 		console.log(`touchstart: ${i}.`);
 		ongoingTouches.push(copyTouch(touches[i]));
-		//const color = colorForTouch(touches[i]);
 		ctx.beginPath();
 		ctx.lineWidth = `${el.width / 12}`;
 		ctx.lineJoin = ctx.lineCap = 'round';
@@ -41,7 +40,6 @@ function handleMove(evt) {
 	const touches = evt.changedTouches;
 
 	for (let i = 0; i < touches.length; i++) {
-		//const color = colorForTouch(touches[i]);
 		const idx = ongoingTouchIndexById(touches[i].identifier);
 
 		if (idx >= 0) {
