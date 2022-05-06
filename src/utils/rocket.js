@@ -6,8 +6,7 @@ let rocket_images = [];
 let rockets = null;
 
 //  different game mode has different set of rocket
-let rocket_min = 0;
-let rocket_max = 10;
+let rocket_set = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 for(let i = 0 ; i < 10 ; ++i)   {
     var img = new Image();
@@ -30,7 +29,7 @@ class Rocket    {
 //  generate new Rocket
 function genRocket()    {
     var R = new Rocket();
-    let i = rocket_min + Math.floor(Math.random() * (rocket_max - rocket_min));
+    let i = rocket_set[Math.floor(Math.random() * rocket_set.length)];
 
     rockets[i].push(R);
 }

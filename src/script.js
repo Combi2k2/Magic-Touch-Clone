@@ -16,8 +16,8 @@ function GameStart(mode)    {
     interval_genRocket = (mode == 'Classic') ? 2000 : 1500;
     velocity_genRocket = (mode == 'Classic') ? 40 : 60;
 
-    if (mode == 'Classic')  {   rocket_min = 0; rocket_max = 5;     }
-    if (mode == 'Insane')   {   rocket_min = 5; rocket_max = 10;    }
+    if (mode == 'Classic')  rocket_set = [0, 1, 6, 7];
+    if (mode == 'Insane')   rocket_set = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 }
 
 losingTimeoutId = null;
