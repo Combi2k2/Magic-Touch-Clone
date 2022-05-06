@@ -91,14 +91,25 @@ function LeaderboardElement(mode)   {
     leaderboard.classList += "leaderboard";
     leaderboard.textContent = `LEADERBOARD:\r\nID  Mode    Score\r\n`;
 
-    for(let i = 0 ; i < leaderboard_size ; ++i)    {
-        //score = JSON.parse(localStorage.getItem(i))
-        let data = localStorage.getItem(i).split(',')
-        let data_id = i.toString();
-        let data_mode = data[0];
+    var scores = [];
+
+    for(let i = 0 ; i < leaderboard_size ; ++i) {
+        let data = localStorage.getItem(i).split(',');
+        let data_mode  = data[0];
         let data_score = data[1];
-        leaderboard.textContent += `${data_id}.` + Array(3 - data_id.length).fill('\xa0').join('') + `${data_mode}` +
-        Array(8 - data_mode.length).fill('\xa0').join('') + `${data_score}\r\n`;
+
+        if (data_mode == game_mode)
+            scores.push(data_score)
+    }
+    scores.sort();
+    scores = scores.reverse();
+
+    if (scores.length > 5)
+        scores = scores.slice(0, 5);
+    
+    for(let i = 0 ; i < scores.length ; ++i)    {
+        if (game_mode == 'Classic') leaderboard.textContent += `${i}.  Classic ${scores[i]}\n`;
+        if (game_mode == 'Insane')  leaderboard.textContent += `${i}.  Insane  ${scores[i]}\n`;
     }
     
     return  leaderboard;
