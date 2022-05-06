@@ -5,6 +5,9 @@ const missle_height = missle_width;
 let rocket_images = [];
 let rockets = null;
 
+//  different game mode has different set of rocket
+let rocket_set = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 for(let i = 0 ; i < 10 ; ++i)   {
     var img = new Image();
     img.src = `images/rockets/rocket${i}.png`;
@@ -26,7 +29,7 @@ class Rocket    {
 //  generate new Rocket
 function genRocket()    {
     var R = new Rocket();
-    let i = Math.floor(Math.random() * 10);
+    let i = rocket_set[Math.floor(Math.random() * rocket_set.length)];
 
     rockets[i].push(R);
 }

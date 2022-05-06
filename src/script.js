@@ -15,6 +15,9 @@ function GameStart(mode)    {
     console.log(mode)
     interval_genRocket = (mode == 'Classic') ? 2000 : 1500;
     velocity_genRocket = (mode == 'Classic') ? 40 : 60;
+
+    if (mode == 'Classic')  rocket_set = [0, 1, 6, 7];
+    if (mode == 'Insane')   rocket_set = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 }
 
 losingTimeoutId = null;
@@ -105,7 +108,7 @@ function Game(mode) {
 
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
-  });
+});
   // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
 game_mode = params.mode; // "some_value"
 Game(game_mode)

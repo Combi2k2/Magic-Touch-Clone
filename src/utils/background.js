@@ -20,12 +20,14 @@ function render_Grass() {
 }
 
 const sky_layer = new Image();
-sky_layer.src = "images/sky.png";
 sky_layer.onload = function()   {
     console.log("Sky loaded");
 }
 
 function render_Sky()   {
+    if (game_mode == 'Classic') sky_layer.src = "images/sky.png";
+    if (game_mode == 'Insane')  sky_layer.src = "images/sky_insane.png";
+
     game_ctx.drawImage(sky_layer,
         0, 0,
         game_canvas.width,
@@ -39,6 +41,9 @@ city_layer.onload = function()  {
 }
 
 function render_City()  {
+    if (game_mode == 'Insane')
+        return;
+    
     const w = 1150;
     const h = 340;
 
