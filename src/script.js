@@ -83,12 +83,13 @@ function gameRender()   {
         overlay.classList += "overlay"
         document.body.appendChild(overlay)
         
-        let menu = document.createElement("div");
-        menu.classList += "dashboard";
+        let dashboard = document.createElement("div");
+        dashboard.classList += "dashboard";
         
-        menu.appendChild(leaderboard)
-        menu.appendChild(replayButton);
-        document.body.appendChild(menu);
+        dashboard.appendChild(leaderboard);
+        dashboard.appendChild(replayButton);
+        dashboard.appendChild(menuButton);
+        document.body.appendChild(dashboard);
 
         replayed = false;
     }

@@ -16,12 +16,13 @@ function gamePause()    {
     overlay.classList += "overlay"
     document.body.appendChild(overlay)
 
-    let menu = document.createElement("div");
-    menu.classList += "dashboard";
+    let dashboard = document.createElement("div");
+    dashboard.classList += "dashboard";
     
-    menu.appendChild(playButton);
-    menu.appendChild(replayButton);
-    document.body.appendChild(menu);
+    dashboard.appendChild(playButton);
+    dashboard.appendChild(replayButton);
+    dashboard.appendChild(menuButton)
+    document.body.appendChild(dashboard);
 }
 
 function genButton(icon_src)    {
@@ -87,3 +88,9 @@ function gameReplay() {
     GameStart('Classic')
     gameRender()
 }
+
+let menuButton = genButton("images/buttons/menu.png")
+
+menuButton.addEventListener("click", _event => {
+    location.href = "index.html"
+});
