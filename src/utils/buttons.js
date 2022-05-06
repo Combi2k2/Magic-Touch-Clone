@@ -80,11 +80,9 @@ replayButton.addEventListener("click", _event => {
 
 function gameReplay() {
     let menu = document.querySelector(".dashboard")
-    if (!exploded) {
-        let overlay = document.querySelector(".overlay")
-        document.body.removeChild(overlay)
-    }
+    let overlay = document.querySelector(".overlay")
     document.body.removeChild(menu)
+    document.body.removeChild(overlay)
     clearTimeout(losingTimeoutId)
     GameStart('Classic')
     gameRender()

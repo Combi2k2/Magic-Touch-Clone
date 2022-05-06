@@ -6,14 +6,11 @@ let velocity_genRocket = null;
 const interval_genRocket_threshold = 200;
 
 function GameStart(mode)    {
-    rockets = [];
+    rockets = Array.from(Array(10), () => []);
     score = 0;
     document.querySelector("#score").textContent = 0;
     isPaused = 0;
     exploded = false;
-
-    for(let i = 0 ; i < 10 ; ++i)
-        rockets.push([]);
     
     console.log(mode)
     interval_genRocket = (mode == 'Classic') ? 2000 : 1500;
@@ -45,6 +42,7 @@ function GameLose() {
     }
     exploded = true;
     explode();
+
 }
 let time_elapsed = 0;
 let time_mock = null;
@@ -80,6 +78,10 @@ function gameRender()   {
         GameLose();
         updateLeaderboard(game_mode, score);
         leaderboard = LeaderboardElement(game_mode);
+
+        let overlay = document.createElement("div")
+        overlay.classList += "overlay"
+        document.body.appendChild(overlay)
         
         let menu = document.createElement("div");
         menu.classList += "dashboard";
