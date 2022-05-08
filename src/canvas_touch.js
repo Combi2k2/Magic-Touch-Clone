@@ -1,9 +1,7 @@
-const el = document.getElementById('draw-canvas');
-el.addEventListener('touchstart', handleStart);
-el.addEventListener('touchend', handleEnd);
-el.addEventListener('touchcancel', handleCancel);
-el.addEventListener('touchmove', handleMove);
-const ctx = el.getContext('2d');
+canvas.addEventListener('touchstart', handleStart);
+canvas.addEventListener('touchend', handleEnd);
+canvas.addEventListener('touchcancel', handleCancel);
+canvas.addEventListener('touchmove', handleMove);
 
 function copyTouch(touch) {
 	return { identifier: touch.identifier, pageX: touch.pageX, pageY: touch.pageY };
@@ -28,10 +26,10 @@ function handleStart(evt) {
 	for (let i = 0; i < touches.length; i++) {
 		console.log(`touchstart: ${i}.`);
 		ongoingTouches.push(copyTouch(touches[i]));
-		ctx.beginPath();
-		ctx.lineWidth = `${el.width / 12}`;
-		ctx.lineJoin = ctx.lineCap = 'round';
-		ctx.strokeStyle = 'black';
+		inputBox.beginPath();
+		inputBox.lineWidth = `${canvas.width / 12}`;
+		inputBox.lineJoin = inputBox.lineCap = 'round';
+		inputBox.strokeStyle = 'black';
 	}
 }
 
@@ -43,12 +41,15 @@ function handleMove(evt) {
 		const idx = ongoingTouchIndexById(touches[i].identifier);
 
 		if (idx >= 0) {
-			const rect = el.getBoundingClientRect();
+			const rect = canvas.getBoundingClientRect();
+			l = Math.min(l, touches[i].pageX - rect.left);	r = Math.max(r, touches[i].pageX - rect.left);
+			u = Math.min(u, touches[i].pageY - rect.top);	d = Math.max(d, touches[i].pageY - rect.top);
+
 			console.log(`continuing touch ${ idx }`);
-			ctx.beginPath();
-			ctx.moveTo(ongoingTouches[idx].pageX - rect.left, ongoingTouches[idx].pageY - rect.top);
-			ctx.lineTo(touches[i].pageX - rect.left, touches[i].pageY - rect.top);
-			ctx.stroke();
+			inputBox.beginPath();
+			inputBox.moveTo(ongoingTouches[idx].pageX - rect.left, ongoingTouches[idx].pageY - rect.top);
+			inputBox.lineTo(touches[i].pageX - rect.left, touches[i].pageY - rect.top);
+			inputBox.stroke();
 
 			ongoingTouches.splice(idx, 1, copyTouch(touches[i]));  // swap in the new touch record
 		} else {
@@ -66,11 +67,14 @@ function handleEnd(evt) {
 		let idx = ongoingTouchIndexById(touches[i].identifier);
 
 		if (idx >= 0) {
-			ctx.lineWidth = 4;
-			ctx.beginPath();
+			inputBox.lineWidth = 4;
+			inputBox.beginPath();
 			const rect = canvas.getBoundingClientRect();
-			ctx.moveTo(ongoingTouches[idx].pageX - rect.left, ongoingTouches[idx].pageY - rect.top);
-			ctx.lineTo(touches[i].pageX - rect.left, touches[i].pageY - rect.top);
+			l = Math.min(l, touches[i].pageX);	r = Math.max(r, touches[i].pageX);
+			u = Math.min(u, touches[i].pageY);	d = Math.max(d, touches[i].pageY);
+
+			inputBox.moveTo(ongoingTouches[idx].pageX - rect.left, ongoingTouches[idx].pageY - rect.top);
+			inputBox.lineTo(touches[i].pageX - rect.left, touches[i].pageY - rect.top);
 			ongoingTouches.splice(idx, 1);  // remove it; we're done
 		} else {
 			console.log('can\'t figure out which touch to end');
@@ -80,8 +84,10 @@ function handleEnd(evt) {
 	if (ongoingTouches.length != 0) {
 		return;
 	}
+	
+	isDrawing = false;
 	let pred = predict();
-	let imgd = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	let imgd = inputBox.getImageData(0, 0, canvas.width, canvas.height);
 
 	let [pred_R, pred_G, pred_B] = HexToRGB(colors[pred]);
 
@@ -92,13 +98,13 @@ function handleEnd(evt) {
 		imgd.data[i + 2] = pred_B;
 	}
 	//	re-draw the inputBox
-	ctx.putImageData(imgd, 0, 0);
+	inputBox.putImageData(imgd, 0, 0);
 
 	function fadeOut()  {
 		let itr = 0;
 		function run()  {
-			ctx.fillStyle = "rgba(255,255,255,0.25)";
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			inputBox.fillStyle = "rgba(255,255,255,0.25)";
+			inputBox.fillRect(0, 0, canvas.width, canvas.height);
 			itr++;
 
 			if (itr >= 20)

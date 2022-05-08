@@ -64,7 +64,7 @@ function updateLeaderboard(mode, score) {
 
     // writeFile(file_dir, info)
     localStorage.setItem(leaderboard_size++, [mode, score])
-    console.log(localStorage)
+    //console.log(localStorage)
 }
 function LeaderboardElement(game_mode)  {
     // fs.readFile(file_dir, function readFileCallback(err, data)  {
