@@ -115,26 +115,54 @@ function drawStroke(clientX, clientY) {
 /* Makes predictions */
 function predict()	{
 	let values = getPixelData();
+	smBox.clearRect(0, 0, smallCanvas.width, smallCanvas.height)
 	let scores = model.predict(values).dataSync();
 
 	return  scores.indexOf(Math.max(...scores));
 }
 
+
+
 /* Returns pixel data from canvas after applying transformations */
 function getPixelData() {
+	console.log(l, r, u, d)
+	/*
 	let center_x = (l + r) / 2;
 	let center_y = (u + d) / 2;
 
-	let width  = Math.max(r - l + Math.max(canvas.width / 6, (r - l) / 5), canvas.width / 2);
-	let height = Math.max(d - u + Math.max(canvas.width / 6, (d - u) / 5), canvas.width / 2);
-
-	console.log(inputBox.canvas);
+	let width  = r - l + canvas.width / 2;
+	let height = d - u + canvas.width / 2;
 	
 	smBox.drawImage(inputBox.canvas, 
-		center_x - width / 2, center_y - height / 2,
-		center_x + width / 2, center_y + height / 2,
+		center_x - width / 2, center_y - height / 2, width, height,
 		0, 0, smallCanvas.width, smallCanvas.height);
+		*/
+	let center_x = (l + r) / 2;
+	let center_y = (u + d) / 2;
+	//let size = Math.max(r - l, d - u) + 80
+	let size = canvas.width
+	//console.log(size)
+	smBox.fillStyle = 'white';
+	smBox.fillRect(0, 0, smallCanvas.width, smallCanvas.height)
+
+	smBox.drawImage(inputBox.canvas, 
+		center_x - size/2, center_y - size/2, size, size,
+		0, 0, smallCanvas.width, smallCanvas.height);
+
 	const imgData = smBox.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
+
+	// function imagedata_to_image(imagedata) {
+	// 	var canvas = document.createElement('canvas');
+	// 	var ctx = canvas.getContext('2d');
+	// 	canvas.width = imagedata.width;
+	// 	canvas.height = imagedata.height;
+	// 	ctx.putImageData(imagedata, 0, 0);
+	
+	// 	var image = new Image();
+	// 	image.src = canvas.toDataURL();
+	// 	return image;
+	// }
+	// document.body.appendChild(imagedata_to_image(imgData))
 
 	// preserve and normalize values from red channel only
 	let values = [];
