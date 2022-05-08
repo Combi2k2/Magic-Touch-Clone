@@ -2,7 +2,8 @@
 let express = require('express');
 let app = express();
 let PORT_default = 3000;
-let PORT = PORT_default || process.env.PORT;
+//let PORT = PORT_default || process.env.PORT;
+let PORT = process.env.PORT || 8080;
 
 // Serve files from the static directory
 app.use(express.static('./src'));
