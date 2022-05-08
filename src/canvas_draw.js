@@ -23,6 +23,9 @@ async function init()	{
 	model = await tf.loadModel('model/model.json');
 }
 
+let l = null, r = null;
+let u = null, d = null;
+
 canvas.addEventListener('mousedown', _event =>	{
 	canvas.width  = window.innerWidth * 0.22;
 	canvas.height = canvas.width;
@@ -33,6 +36,9 @@ canvas.addEventListener('mousedown', _event =>	{
     inputBox.lineWidth = `${canvas.width / 12}`;
     inputBox.lineJoin = inputBox.lineCap = 'round';
     inputBox.beginPath();
+
+	l = 1000;	r = 0;
+	u = 1000;	d = 0;
 });
 
 canvas.addEventListener('mousemove', event =>	{
@@ -97,6 +103,9 @@ function drawStroke(clientX, clientY) {
 	const x = clientX - rect.left;
 	const y = clientY - rect.top;
 
+	l = Math.min(l, x);	r = Math.max(r, x);
+	u = Math.min(u, y);	d = Math.max(d, y);
+
 	// draw
 	inputBox.lineTo(x, y);
 	inputBox.stroke();
@@ -113,7 +122,18 @@ function predict()	{
 
 /* Returns pixel data from canvas after applying transformations */
 function getPixelData() {
-	smBox.drawImage(inputBox.canvas, 0, 0, smallCanvas.width, smallCanvas.height);
+	let center_x = (l + r) / 2;
+	let center_y = (u + d) / 2;
+
+	let width  = Math.max(r - l + Math.max(canvas.width / 6, (r - l) / 5), canvas.width / 2);
+	let height = Math.max(d - u + Math.max(canvas.width / 6, (d - u) / 5), canvas.width / 2);
+
+	console.log(inputBox.canvas);
+	
+	smBox.drawImage(inputBox.canvas, 
+		center_x - width / 2, center_y - height / 2,
+		center_x + width / 2, center_y + height / 2,
+		0, 0, smallCanvas.width, smallCanvas.height);
 	const imgData = smBox.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
 
 	// preserve and normalize values from red channel only
