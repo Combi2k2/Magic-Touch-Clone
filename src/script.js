@@ -71,7 +71,6 @@ function gameRender()   {
     render_City();
     move_Rockets();
 
-
     if (render_Rockets())   {
         render_Grass();
         //window.requestAnimationFrame(gameRender);
@@ -99,7 +98,9 @@ function gameRender()   {
 }
 
 function Game(mode) {
-    //game_mode = mode;
+    if (mode == 'Classic') sky_layer.src = "images/sky.png";
+    if (mode == 'Insane')  sky_layer.src = "images/sky_insane.png";
+    
     time_mock = Date.now() - 2000;
 
     GameStart(mode);

@@ -25,9 +25,6 @@ sky_layer.onload = function()   {
 }
 
 function render_Sky()   {
-    if (game_mode == 'Classic') sky_layer.src = "images/sky.png";
-    if (game_mode == 'Insane')  sky_layer.src = "images/sky_insane.png";
-
     game_ctx.drawImage(sky_layer,
         0, 0,
         game_canvas.width,
