@@ -1,5 +1,5 @@
 //  load images of rockets
-const missle_width  = game_canvas.width  * 0.07;
+const missle_width  = game_canvas.width  * 0.1;
 const missle_height = missle_width;
 
 let rocket_images = [];
@@ -12,7 +12,7 @@ for(let i = 0 ; i < 10 ; ++i)   {
     var img = new Image();
     //img.src = `images/rockets/${i}.png`;
     //img.src = `images/rockets/test.png`;
-    img.src = `images/rockets/rocket${0}.png`;
+    img.src = `images/rockets/rocket${i}.png`;
     img.onload = function() {
         if (i == 9) console.log("GAME READY");
         else        console.log(`LOADED ${i + 1} rockets`);
