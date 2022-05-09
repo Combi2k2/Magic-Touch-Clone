@@ -88,8 +88,7 @@ function gameReplay() {
     document.body.removeChild(menu)
     document.body.removeChild(overlay)
     clearTimeout(losingTimeoutId)
-    GameStart('Classic')
-    gameRender()
+    Game(game_mode)
 }
 
 let menuButton = genButton("images/buttons/menu.png")

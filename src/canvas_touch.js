@@ -33,9 +33,11 @@ function handleStart(evt) {
 	}
 	l = 1000;	r = 0;
 	u = 1000;	d = 0;
+	isDrawing = true;
 }
 
 function handleMove(evt) {
+	if (!isDrawing) return;
 	evt.preventDefault();
 	const touches = evt.changedTouches;
 
