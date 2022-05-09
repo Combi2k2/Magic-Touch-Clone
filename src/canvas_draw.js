@@ -26,6 +26,8 @@ async function init()	{
 let l = null, r = null;
 let u = null, d = null;
 
+let fadeId = null;
+
 canvas.addEventListener('mousedown', _event =>	{
 	canvas.width  = window.innerWidth * 0.22;
 	canvas.height = canvas.width;
@@ -42,8 +44,12 @@ canvas.addEventListener('mousedown', _event =>	{
 });
 
 canvas.addEventListener('mousemove', event =>	{
-  	if (isDrawing)
-	  	drawStroke(event.clientX, event.clientY);
+  	if (!isDrawing) return;
+	inputBox.fillStyle = "rgb(255,255,255)";
+	inputBox.fillRect(0, 0, canvas.width, canvas.height);
+	clearTimeout(fadeId)
+	fadeId = null;
+	drawStroke(event.clientX, event.clientY);
 });
 
 //	the color of the stroke becomes the color of matched missle and then fade out
@@ -70,7 +76,7 @@ canvas.addEventListener('mouseup', _event =>	{
 	let [pred_R, pred_G, pred_B] = HexToRGB(colors[pred]);
 
 	//	transforming the color
-	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] != 255)	{
+	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] <= 245)	{
 		imgd.data[i] = pred_R;
 		imgd.data[i + 1] = pred_G;
 		imgd.data[i + 2] = pred_B;
@@ -91,9 +97,9 @@ canvas.addEventListener('mouseup', _event =>	{
 	
 			if (itr >= 20)
 				return;
-			setTimeout(run, 50);
+			fadeId = setTimeout(run, 25);
 		}
-		setTimeout(run, 100);
+		fadeId = setTimeout(run, 50);
 	}
 	fadeOut();
 });
@@ -127,7 +133,7 @@ function predict()	{
 
 /* Returns pixel data from canvas after applying transformations */
 function getPixelData() {
-	console.log(l, r, u, d)
+	//console.log(l, r, u, d)
 	/*
 	let center_x = (l + r) / 2;
 	let center_y = (u + d) / 2;
@@ -144,8 +150,10 @@ function getPixelData() {
 	//let size = Math.max(r - l, d - u) + 80
 	let size = canvas.width
 	//console.log(size)
-	smBox.fillStyle = 'white';
+	let cur = smBox.fillStyle
+	smBox.fillStyle = 'rgb(255, 255, 255)';
 	smBox.fillRect(0, 0, smallCanvas.width, smallCanvas.height)
+	smBox.fillStyle = cur;
 
 	smBox.drawImage(inputBox.canvas, 
 		center_x - size/2, center_y - size/2, size, size,
