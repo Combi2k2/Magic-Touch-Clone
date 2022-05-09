@@ -1,5 +1,5 @@
 //  load images of rockets
-const missle_width  = game_canvas.width  * 0.07;
+const missle_width  = game_canvas.width  * 0.1;
 const missle_height = missle_width;
 
 let rocket_images = [];

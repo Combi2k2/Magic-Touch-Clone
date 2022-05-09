@@ -31,6 +31,8 @@ function handleStart(evt) {
 		inputBox.lineJoin = inputBox.lineCap = 'round';
 		inputBox.strokeStyle = 'black';
 	}
+	l = 1000;	r = 0;
+	u = 1000;	d = 0;
 }
 
 function handleMove(evt) {
@@ -42,6 +44,7 @@ function handleMove(evt) {
 
 		if (idx >= 0) {
 			const rect = canvas.getBoundingClientRect();
+			console.log(l, r, u, d)
 			l = Math.min(l, touches[i].pageX - rect.left);	r = Math.max(r, touches[i].pageX - rect.left);
 			u = Math.min(u, touches[i].pageY - rect.top);	d = Math.max(d, touches[i].pageY - rect.top);
 
@@ -70,8 +73,8 @@ function handleEnd(evt) {
 			inputBox.lineWidth = 4;
 			inputBox.beginPath();
 			const rect = canvas.getBoundingClientRect();
-			l = Math.min(l, touches[i].pageX);	r = Math.max(r, touches[i].pageX);
-			u = Math.min(u, touches[i].pageY);	d = Math.max(d, touches[i].pageY);
+			l = Math.min(l, touches[i].pageX - rect.left);	r = Math.max(r, touches[i].pageX - rect.left);
+			u = Math.min(u, touches[i].pageY - rect.top);	d = Math.max(d, touches[i].pageY - rect.top);
 
 			inputBox.moveTo(ongoingTouches[idx].pageX - rect.left, ongoingTouches[idx].pageY - rect.top);
 			inputBox.lineTo(touches[i].pageX - rect.left, touches[i].pageY - rect.top);
