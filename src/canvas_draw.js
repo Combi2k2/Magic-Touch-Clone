@@ -78,6 +78,10 @@ canvas.addEventListener('mouseup', _event =>	{
 	//	re-draw the inputBox
 	inputBox.putImageData(imgd, 0, 0);
 
+	prediction = pred;
+	console.log(pred);
+	render_Rockets();
+
 	function fadeOut()  {
 		let itr = 0;
 		function run()  {
@@ -92,8 +96,6 @@ canvas.addEventListener('mouseup', _event =>	{
 		setTimeout(run, 100);
 	}
 	fadeOut();
-	prediction = pred;
-	console.log(pred);
 });
 
 /* Draws on canvas */
