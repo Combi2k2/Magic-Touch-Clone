@@ -78,6 +78,10 @@ canvas.addEventListener('mouseup', _event =>	{
 	//	re-draw the inputBox
 	inputBox.putImageData(imgd, 0, 0);
 
+	prediction = pred;
+	console.log(pred);
+	render_Rockets();
+
 	function fadeOut()  {
 		let itr = 0;
 		function run()  {
@@ -92,8 +96,6 @@ canvas.addEventListener('mouseup', _event =>	{
 		setTimeout(run, 100);
 	}
 	fadeOut();
-	prediction = pred;
-	console.log(pred);
 });
 
 /* Draws on canvas */
@@ -162,7 +164,9 @@ function getPixelData() {
 	// 	image.src = canvas.toDataURL();
 	// 	return image;
 	// }
-	// document.body.appendChild(imagedata_to_image(imgData))
+	// let test_img = imagedata_to_image(imgData)
+	// test_img.style.zIndex = 999999;
+	// document.body.appendChild(test_img)
 
 	// preserve and normalize values from red channel only
 	let values = [];

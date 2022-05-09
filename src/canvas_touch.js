@@ -46,7 +46,6 @@ function handleMove(evt) {
 
 		if (idx >= 0) {
 			const rect = canvas.getBoundingClientRect();
-			console.log(l, r, u, d)
 			l = Math.min(l, touches[i].pageX - rect.left);	r = Math.max(r, touches[i].pageX - rect.left);
 			u = Math.min(u, touches[i].pageY - rect.top);	d = Math.max(d, touches[i].pageY - rect.top);
 
