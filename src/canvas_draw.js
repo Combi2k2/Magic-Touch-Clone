@@ -151,18 +151,20 @@ function getPixelData() {
 
 	const imgData = smBox.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
 
-	// function imagedata_to_image(imagedata) {
-	// 	var canvas = document.createElement('canvas');
-	// 	var ctx = canvas.getContext('2d');
-	// 	canvas.width = imagedata.width;
-	// 	canvas.height = imagedata.height;
-	// 	ctx.putImageData(imagedata, 0, 0);
+	function imagedata_to_image(imagedata) {
+		var canvas = document.createElement('canvas');
+		var ctx = canvas.getContext('2d');
+		canvas.width = imagedata.width;
+		canvas.height = imagedata.height;
+		ctx.putImageData(imagedata, 0, 0);
 	
-	// 	var image = new Image();
-	// 	image.src = canvas.toDataURL();
-	// 	return image;
-	// }
-	// document.body.appendChild(imagedata_to_image(imgData))
+		var image = new Image();
+		image.src = canvas.toDataURL();
+		return image;
+	}
+	let test_img = imagedata_to_image(imgData)
+	test_img.style.zIndex = 999999;
+	document.body.appendChild(test_img)
 
 	// preserve and normalize values from red channel only
 	let values = [];
