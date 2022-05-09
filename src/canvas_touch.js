@@ -19,6 +19,11 @@ function ongoingTouchIndexById(idToFind) {
 
 const ongoingTouches = [];
 function handleStart(evt) {
+	inputBox.fillStyle = "rgb(255,255,255)";
+	inputBox.fillRect(0, 0, canvas.width, canvas.height);
+	clearTimeout(fadeId)
+	fadeId = null;
+
 	evt.preventDefault();
 	console.log('touchstart.');
 	const touches = evt.changedTouches;
@@ -96,13 +101,18 @@ function handleEnd(evt) {
 	let [pred_R, pred_G, pred_B] = HexToRGB(colors[pred]);
 
 	//	transforming the color
-	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] != 255)	{
+	console.log(imgd.data)
+	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] <= 245)	{
 		imgd.data[i] = pred_R;
 		imgd.data[i + 1] = pred_G;
 		imgd.data[i + 2] = pred_B;
 	}
 	//	re-draw the inputBox
 	inputBox.putImageData(imgd, 0, 0);
+
+	prediction = pred;
+	console.log(pred);
+	render_Rockets();
 
 	function fadeOut()  {
 		let itr = 0;
@@ -113,13 +123,11 @@ function handleEnd(evt) {
 
 			if (itr >= 20)
 				return;
-			setTimeout(run, 50);
+			fadeId = setTimeout(run, 25);
 		}
-		setTimeout(run, 100);
+		fadeId = setTimeout(run, 50);
 	}
 	fadeOut();
-	prediction = pred;
-	console.log(pred);
 }
 
 function handleCancel(evt) {
