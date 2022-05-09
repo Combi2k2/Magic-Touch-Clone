@@ -23,12 +23,27 @@ const sky_layer = new Image();
 sky_layer.onload = function()   {
     console.log("Sky loaded");
 }
+sky_layer.src = "images/sky.png"
+
+const sky_insane_layer = new Image();
+sky_insane_layer.onload = function()   {
+    console.log("Sky loaded");
+}
+sky_insane_layer.src = "images/sky_insane.png"
 
 function render_Sky()   {
-    game_ctx.drawImage(sky_layer,
+    if (game_mode == 'Classic') {
+        game_ctx.drawImage(sky_layer,
+            0, 0,
+            game_canvas.width,
+            game_canvas.height);
+    } else {
+        
+    game_ctx.drawImage(sky_insane_layer,
         0, 0,
         game_canvas.width,
         game_canvas.height);
+    }
 }
 
 const city_layer = new Image();

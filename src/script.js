@@ -101,8 +101,8 @@ function gameRender()   {
 }
 
 function Game(mode) {
-    if (mode == 'Classic') sky_layer.src = "images/sky.png";
-    if (mode == 'Insane')  sky_layer.src = "images/sky_insane.png";
+    // if (mode == 'Classic') sky_layer.src = "images/sky.png";
+    // if (mode == 'Insane')  sky_layer.src = "images/sky_insane.png";
     
     time_mock = Date.now() - 2000;
 
