@@ -22,6 +22,10 @@ function GameStart(mode)    {
 
 losingTimeoutId = null;
 function GameLose() {
+    isDrawing = 0;
+    inputBox.fillStyle = 'white'
+    inputBox.fillRect(0, 0, canvas.width, canvas.height)
+
     function explode(idx_explosion = 0) {
         if (idx_explosion > 19)
             return;
@@ -46,6 +50,22 @@ function GameLose() {
     exploded = true;
     explode();
 
+    updateLeaderboard(game_mode, score);
+    leaderboard = LeaderboardElement(game_mode);
+
+    let overlay = document.createElement("div")
+    overlay.classList += "overlay"
+    document.body.appendChild(overlay)
+    
+    let dashboard = document.createElement("div");
+    dashboard.classList += "dashboard";
+    
+    dashboard.appendChild(leaderboard);
+    dashboard.appendChild(replayButton);
+    dashboard.appendChild(menuButton);
+    document.body.appendChild(dashboard);
+
+    replayed = false;
 }
 let time_elapsed = 0;
 let time_mock = null;
@@ -76,25 +96,8 @@ function gameRender()   {
         //window.requestAnimationFrame(gameRender);
         setTimeout(gameRender, 25);
     }
-    else    {
+    else
         GameLose();
-        updateLeaderboard(game_mode, score);
-        leaderboard = LeaderboardElement(game_mode);
-
-        let overlay = document.createElement("div")
-        overlay.classList += "overlay"
-        document.body.appendChild(overlay)
-        
-        let dashboard = document.createElement("div");
-        dashboard.classList += "dashboard";
-        
-        dashboard.appendChild(leaderboard);
-        dashboard.appendChild(replayButton);
-        dashboard.appendChild(menuButton);
-        document.body.appendChild(dashboard);
-
-        replayed = false;
-    }
 }
 
 function Game(mode) {
