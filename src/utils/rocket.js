@@ -10,9 +10,9 @@ let rocket_set = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 for(let i = 0 ; i < 10 ; ++i)   {
     var img = new Image();
-    //img.src = `images/rockets/${i}.png`;
+    img.src = `images/rockets/${i}.png`;
     //img.src = `images/rockets/test.png`;
-    img.src = `images/rockets/rocket${i}.png`;
+    //img.src = `images/rockets/rocket${i}.png`;
     img.onload = function() {
         if (i == 9) console.log("GAME READY");
         else        console.log(`LOADED ${i + 1} rockets`);
