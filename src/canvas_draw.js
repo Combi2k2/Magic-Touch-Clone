@@ -86,7 +86,7 @@ canvas.addEventListener('mouseup', _event =>	{
 
 	prediction = pred;
 	console.log(pred);
-	render_Rockets();
+	renderRockets();
 
 	function fadeOut()  {
 		let itr = 0;
@@ -133,23 +133,9 @@ function predict()	{
 
 /* Returns pixel data from canvas after applying transformations */
 function getPixelData() {
-	//console.log(l, r, u, d)
-	/*
 	let center_x = (l + r) / 2;
 	let center_y = (u + d) / 2;
-
-	let width  = r - l + canvas.width / 2;
-	let height = d - u + canvas.width / 2;
-	
-	smBox.drawImage(inputBox.canvas, 
-		center_x - width / 2, center_y - height / 2, width, height,
-		0, 0, smallCanvas.width, smallCanvas.height);
-		*/
-	let center_x = (l + r) / 2;
-	let center_y = (u + d) / 2;
-	//let size = Math.max(r - l, d - u) + 80
 	let size = canvas.width
-	//console.log(size)
 	let cur = smBox.fillStyle
 	smBox.fillStyle = 'rgb(255, 255, 255)';
 	smBox.fillRect(0, 0, smallCanvas.width, smallCanvas.height)
@@ -160,21 +146,6 @@ function getPixelData() {
 		0, 0, smallCanvas.width, smallCanvas.height);
 
 	const imgData = smBox.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
-
-	// function imagedata_to_image(imagedata) {
-	// 	var canvas = document.createElement('canvas');
-	// 	var ctx = canvas.getContext('2d');
-	// 	canvas.width = imagedata.width;
-	// 	canvas.height = imagedata.height;
-	// 	ctx.putImageData(imagedata, 0, 0);
-	
-	// 	var image = new Image();
-	// 	image.src = canvas.toDataURL();
-	// 	return image;
-	// }
-	// let test_img = imagedata_to_image(imgData)
-	// test_img.style.zIndex = 999999;
-	// document.body.appendChild(test_img)
 
 	// preserve and normalize values from red channel only
 	let values = [];

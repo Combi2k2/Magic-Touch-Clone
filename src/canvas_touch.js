@@ -90,10 +90,6 @@ function handleEnd(evt) {
 			console.log('can\'t figure out which touch to end');
 		}
 	}
-
-	// if (ongoingTouches.length != 0) {
-	// 	return;
-	// }
 	
 	isDrawing = false;
 	let pred = predict();
@@ -112,7 +108,7 @@ function handleEnd(evt) {
 
 	prediction = pred;
 	console.log(pred);
-	render_Rockets();
+	renderRockets();
 
 	function fadeOut()  {
 		let itr = 0;
