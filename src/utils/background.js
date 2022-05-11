@@ -4,7 +4,7 @@ grass_layer.onload = function() {
     console.log("Grass Loaded");
 };
 
-function render_Grass() {
+function renderGrass() {
     const w = 1918;
     const h = 300;
 
@@ -31,7 +31,7 @@ sky_insane_layer.onload = function()   {
 }
 sky_insane_layer.src = "images/sky_insane.png"
 
-function render_Sky()   {
+function renderSky()   {
     if (game_mode == 'Classic') {
         game_ctx.drawImage(sky_layer,
             0, 0,
@@ -52,7 +52,7 @@ city_layer.onload = function()  {
     console.log("City loaded");
 }
 
-function render_City()  {
+function renderCity()  {
     if (game_mode == 'Insane')
         return;
     

@@ -1,7 +1,7 @@
-canvas.addEventListener('touchstart', handleStart);
-canvas.addEventListener('touchend', handleEnd);
-canvas.addEventListener('touchcancel', handleCancel);
-canvas.addEventListener('touchmove', handleMove);
+canvas.addEventListener('touchstart', handleStart, false);
+canvas.addEventListener('touchend', handleEnd, false);
+canvas.addEventListener('touchcancel', handleCancel, false);
+canvas.addEventListener('touchmove', handleMove, false);
 
 function copyTouch(touch) {
 	return { identifier: touch.identifier, pageX: touch.pageX, pageY: touch.pageY };
@@ -19,12 +19,13 @@ function ongoingTouchIndexById(idToFind) {
 
 const ongoingTouches = [];
 function handleStart(evt) {
+	evt.preventDefault();
+
 	inputBox.fillStyle = "rgb(255,255,255)";
 	inputBox.fillRect(0, 0, canvas.width, canvas.height);
 	clearTimeout(fadeId)
 	fadeId = null;
 
-	evt.preventDefault();
 	console.log('touchstart.');
 	const touches = evt.changedTouches;
 
@@ -89,10 +90,6 @@ function handleEnd(evt) {
 			console.log('can\'t figure out which touch to end');
 		}
 	}
-
-	if (ongoingTouches.length != 0) {
-		return;
-	}
 	
 	isDrawing = false;
 	let pred = predict();
@@ -101,7 +98,6 @@ function handleEnd(evt) {
 	let [pred_R, pred_G, pred_B] = HexToRGB(colors[pred]);
 
 	//	transforming the color
-	console.log(imgd.data)
 	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] <= 245)	{
 		imgd.data[i] = pred_R;
 		imgd.data[i + 1] = pred_G;
@@ -112,7 +108,7 @@ function handleEnd(evt) {
 
 	prediction = pred;
 	console.log(pred);
-	render_Rockets();
+	renderRockets();
 
 	function fadeOut()  {
 		let itr = 0;
