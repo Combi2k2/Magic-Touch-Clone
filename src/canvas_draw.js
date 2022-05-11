@@ -125,14 +125,12 @@ function getPixelData() {
 	let center_x = (l + r) / 2;
 	let center_y = (u + d) / 2;
 
-	let width  = Math.max(r - l + Math.max(canvas.width / 6, (r - l) / 5), canvas.width / 2);
-	let height = Math.max(d - u + Math.max(canvas.width / 6, (d - u) / 5), canvas.width / 2);
-
+	let width  = r - l + canvas.width / 2;
+	let height = d - u + canvas.width / 2;
+	
 	console.log(inputBox.canvas);
 	
-	smBox.drawImage(inputBox.canvas, 
-		center_x - width / 2, center_y - height / 2,
-		center_x + width / 2, center_y + height / 2,
+	smBox.drawImage(inputBox.canvas, center_x - width / 2, center_y - height / 2, width, height,
 		0, 0, smallCanvas.width, smallCanvas.height);
 	const imgData = smBox.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
 
