@@ -50,7 +50,6 @@ function genButton(icon_src)    {
     button_img.onload = () => {
         button_ctx.drawImage(button_img, 3, 1, buttoncanvas.width - 3, buttoncanvas.height - 3);
     };
-    console.log(button_img)
     
     return button
 }
@@ -88,8 +87,7 @@ function gameReplay() {
     document.body.removeChild(menu)
     document.body.removeChild(overlay)
     clearTimeout(losingTimeoutId)
-    GameStart('Classic')
-    gameRender()
+    game(game_mode)
 }
 
 let menuButton = genButton("images/buttons/menu.png")

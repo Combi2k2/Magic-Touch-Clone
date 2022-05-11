@@ -1,5 +1,5 @@
 //  load images of rockets
-const missle_width  = game_canvas.width  * 0.07;
+const missle_width  = game_canvas.width  * 0.1;
 const missle_height = missle_width;
 
 let rocket_images = [];
@@ -10,7 +10,7 @@ let rocket_set = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 for(let i = 0 ; i < 10 ; ++i)   {
     var img = new Image();
-    img.src = `images/rockets/rocket${i}.png`;
+    img.src = `images/rockets/${i}.png`;
     img.onload = function() {
         if (i == 9) console.log("GAME READY");
         else        console.log(`LOADED ${i + 1} rockets`);
@@ -40,7 +40,7 @@ function render_missle(missle_position, id_missle) {
     game_ctx.drawImage(rocket_images[id_missle], x, y, missle_width, missle_height);
 }
 //  render all the rockets
-function render_Rockets()   {
+function renderRockets()   {
     for(let i = 0 ; i < 10 ; ++i)
     for(let j = 0 ; j < rockets[i].length ; ++j)    {
         let R = rockets[i][j];
@@ -56,7 +56,6 @@ function render_Rockets()   {
                 score++;
                 scoreElement = document.querySelector("#score");
                 scoreElement.textContent = score;
-                console.log("score = ", score)
             }
             render_explosion([R.x, R.y], R.explosion_level);
         }
@@ -65,7 +64,7 @@ function render_Rockets()   {
 }
 
 //  move the rocket forward and update the explosion stage of the missle
-function move_Rockets() {
+function moveRockets() {
     if (prediction != null) {
         for(let R of rockets[prediction])
             R.explosion_level = -1;

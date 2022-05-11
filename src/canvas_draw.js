@@ -26,6 +26,8 @@ async function init()	{
 let l = null, r = null;
 let u = null, d = null;
 
+let fadeId = null;
+
 canvas.addEventListener('mousedown', _event =>	{
 	canvas.width  = window.innerWidth * 0.22;
 	canvas.height = canvas.width;
@@ -42,8 +44,12 @@ canvas.addEventListener('mousedown', _event =>	{
 });
 
 canvas.addEventListener('mousemove', event =>	{
-  	if (isDrawing)
-	  	drawStroke(event.clientX, event.clientY);
+  	if (!isDrawing) return;
+	inputBox.fillStyle = "rgb(255,255,255)";
+	inputBox.fillRect(0, 0, canvas.width, canvas.height);
+	clearTimeout(fadeId)
+	fadeId = null;
+	drawStroke(event.clientX, event.clientY);
 });
 
 //	the color of the stroke becomes the color of matched missle and then fade out
@@ -70,13 +76,17 @@ canvas.addEventListener('mouseup', _event =>	{
 	let [pred_R, pred_G, pred_B] = HexToRGB(colors[pred]);
 
 	//	transforming the color
-	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] != 255)	{
+	for(let i = 0 ; i < imgd.data.length ; i += 4)	if (imgd.data[i] <= 245)	{
 		imgd.data[i] = pred_R;
 		imgd.data[i + 1] = pred_G;
 		imgd.data[i + 2] = pred_B;
 	}
 	//	re-draw the inputBox
 	inputBox.putImageData(imgd, 0, 0);
+
+	prediction = pred;
+	console.log(pred);
+	renderRockets();
 
 	function fadeOut()  {
 		let itr = 0;
@@ -87,13 +97,11 @@ canvas.addEventListener('mouseup', _event =>	{
 	
 			if (itr >= 20)
 				return;
-			setTimeout(run, 50);
+			fadeId = setTimeout(run, 25);
 		}
-		setTimeout(run, 100);
+		fadeId = setTimeout(run, 50);
 	}
 	fadeOut();
-	prediction = pred;
-	console.log(pred);
 });
 
 /* Draws on canvas */
@@ -115,23 +123,28 @@ function drawStroke(clientX, clientY) {
 /* Makes predictions */
 function predict()	{
 	let values = getPixelData();
+	smBox.clearRect(0, 0, smallCanvas.width, smallCanvas.height)
 	let scores = model.predict(values).dataSync();
 
 	return  scores.indexOf(Math.max(...scores));
 }
 
+
+
 /* Returns pixel data from canvas after applying transformations */
 function getPixelData() {
 	let center_x = (l + r) / 2;
 	let center_y = (u + d) / 2;
+	let size = canvas.width
+	let cur = smBox.fillStyle
+	smBox.fillStyle = 'rgb(255, 255, 255)';
+	smBox.fillRect(0, 0, smallCanvas.width, smallCanvas.height)
+	smBox.fillStyle = cur;
 
-	let width  = r - l + canvas.width / 2;
-	let height = d - u + canvas.width / 2;
-	
-	console.log(inputBox.canvas);
-	
-	smBox.drawImage(inputBox.canvas, center_x - width / 2, center_y - height / 2, width, height,
+	smBox.drawImage(inputBox.canvas, 
+		center_x - size/2, center_y - size/2, size, size,
 		0, 0, smallCanvas.width, smallCanvas.height);
+
 	const imgData = smBox.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
 
 	// preserve and normalize values from red channel only

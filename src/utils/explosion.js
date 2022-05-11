@@ -31,10 +31,7 @@ const img_mushroom_explosion = new Image();
 img_mushroom_explosion.src = "images/explode_on_ground.png";
 img_mushroom_explosion.onload = console.log("Mushroom Explosion Loaded");
 
-//  console.log(img_mushroom_explosion.naturalWidth);   //  1556
-//  console.log(img_mushroom_explosion.naturalHeight);  //  971
-
-function render_mushroom_explosion(idx_explosion = 0)   {   // display mushroom explosion at the middle bottom of the canvas
+function renderMushroomExplosion(idx_explosion = 0)   {   // display mushroom explosion at the middle bottom of the canvas
     let w = 318;    // width
     let h = 224;    // height
 

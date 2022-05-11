@@ -4,7 +4,7 @@ grass_layer.onload = function() {
     console.log("Grass Loaded");
 };
 
-function render_Grass() {
+function renderGrass() {
     const w = 1918;
     const h = 300;
 
@@ -23,12 +23,27 @@ const sky_layer = new Image();
 sky_layer.onload = function()   {
     console.log("Sky loaded");
 }
+sky_layer.src = "images/sky.png"
 
-function render_Sky()   {
-    game_ctx.drawImage(sky_layer,
+const sky_insane_layer = new Image();
+sky_insane_layer.onload = function()   {
+    console.log("Sky loaded");
+}
+sky_insane_layer.src = "images/sky_insane.png"
+
+function renderSky()   {
+    if (game_mode == 'Classic') {
+        game_ctx.drawImage(sky_layer,
+            0, 0,
+            game_canvas.width,
+            game_canvas.height);
+    } else {
+        
+    game_ctx.drawImage(sky_insane_layer,
         0, 0,
         game_canvas.width,
         game_canvas.height);
+    }
 }
 
 const city_layer = new Image();
@@ -37,7 +52,7 @@ city_layer.onload = function()  {
     console.log("City loaded");
 }
 
-function render_City()  {
+function renderCity()  {
     if (game_mode == 'Insane')
         return;
     

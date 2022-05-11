@@ -5,7 +5,7 @@ let interval_genRocket = null;
 let velocity_genRocket = null;
 const interval_genRocket_threshold = 200;
 
-function GameStart(mode)    {
+function gameStart(mode)    {
     rockets = Array.from(Array(10), () => []);
     score = 0;
     document.querySelector("#score").textContent = 0;
@@ -21,17 +21,21 @@ function GameStart(mode)    {
 }
 
 losingTimeoutId = null;
-function GameLose() {
+function gameLose() {
+    isDrawing = 0;
+    inputBox.fillStyle = 'white'
+    inputBox.fillRect(0, 0, canvas.width, canvas.height)
+
     function explode(idx_explosion = 0) {
         if (idx_explosion > 19)
             return;
         
         game_ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
         
-        render_Sky();
-        render_City();
-        render_mushroom_explosion(idx_explosion);
-        render_Grass();
+        renderSky();
+        renderCity();
+        renderMushroomExplosion(idx_explosion);
+        renderGrass();
 
         game_ctx.fillStyle = `rgba(255,0,0,${0.02 * idx_explosion})`;
         game_ctx.fillRect(0, 0, game_canvas.width, game_canvas.height);
@@ -46,6 +50,22 @@ function GameLose() {
     exploded = true;
     explode();
 
+    updateLeaderboard(game_mode, score);
+    leaderboard = leaderboardElement(game_mode);
+
+    let overlay = document.createElement("div")
+    overlay.classList += "overlay"
+    document.body.appendChild(overlay)
+    
+    let dashboard = document.createElement("div");
+    dashboard.classList += "dashboard";
+    
+    dashboard.appendChild(leaderboard);
+    dashboard.appendChild(replayButton);
+    dashboard.appendChild(menuButton);
+    document.body.appendChild(dashboard);
+
+    replayed = false;
 }
 let time_elapsed = 0;
 let time_mock = null;
@@ -67,43 +87,22 @@ function gameRender()   {
     }
     game_ctx.clearRect(0, 0, game_canvas.width, game_canvas.height);
 
-    render_Sky();
-    render_City();
-    move_Rockets();
+    renderSky();
+    renderCity();
+    moveRockets();
 
-    if (render_Rockets())   {
-        render_Grass();
-        //window.requestAnimationFrame(gameRender);
+    if (renderRockets())   {
+        renderGrass();
         setTimeout(gameRender, 25);
     }
-    else    {
-        GameLose();
-        updateLeaderboard(game_mode, score);
-        leaderboard = LeaderboardElement(game_mode);
-
-        let overlay = document.createElement("div")
-        overlay.classList += "overlay"
-        document.body.appendChild(overlay)
-        
-        let dashboard = document.createElement("div");
-        dashboard.classList += "dashboard";
-        
-        dashboard.appendChild(leaderboard);
-        dashboard.appendChild(replayButton);
-        dashboard.appendChild(menuButton);
-        document.body.appendChild(dashboard);
-
-        replayed = false;
-    }
+    else
+        gameLose();
 }
 
-function Game(mode) {
-    if (mode == 'Classic') sky_layer.src = "images/sky.png";
-    if (mode == 'Insane')  sky_layer.src = "images/sky_insane.png";
-    
+function game(mode) {
     time_mock = Date.now() - 2000;
 
-    GameStart(mode);
+    gameStart(mode);
     gameRender();
 }
 
@@ -112,4 +111,4 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 });
   // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
 game_mode = params.mode; // "some_value"
-Game(game_mode)
+game(game_mode)
